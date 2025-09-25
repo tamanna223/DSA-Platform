@@ -1,0 +1,468 @@
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+import Topic from '../src/models/Topic.js';
+import Problem from '../src/models/Problem.js';
+
+dotenv.config();
+
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/dsa_tracker';
+
+async function run() {
+  await mongoose.connect(MONGO_URI);
+  console.log('Connected for seed');
+
+  await Problem.deleteMany({});
+  await Topic.deleteMany({});
+
+  const topics = await Topic.insertMany([
+    {
+      title: 'Arrays',
+      description: 'Basics and advanced array problems',
+      level: 'easy',
+      youtubeUrl: 'https://youtu.be/GeHOlt_Q1IQ',
+      leetCodeUrl: 'https://leetcode.com/tag/array/',
+      codeforcesUrl: 'https://codeforces.com/problemset?tags=arrays',
+      articleUrl: 'https://cp-algorithms.com/array/',
+      order: 1,
+    },
+    {
+      title: 'Strings',
+      description: 'String manipulation and algorithms',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/ZRpo41l02KQ',
+      leetCodeUrl: 'https://leetcode.com/tag/string/',
+      codeforcesUrl: 'https://codeforces.com/problemset?tags=strings',
+      articleUrl: 'https://cp-algorithms.com/string/',
+      order: 2,
+    },
+    {
+      title: 'Linked List',
+      description: 'Singly and doubly linked lists, fast/slow pointers',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/F8AbOfQwl1c',
+      articleUrl: 'https://cp-algorithms.com/data_structures/stack_queue_modification.html',
+      order: 3,
+    },
+    {
+      title: 'Trees',
+      description: 'Binary trees, BST, traversals',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/fAAZixBzIAI',
+      articleUrl: 'https://cp-algorithms.com/graph/depth-first-search.html',
+      order: 4,
+    },
+    {
+      title: 'Dynamic Programming',
+      description: 'Classic DP patterns',
+      level: 'hard',
+      youtubeUrl: 'https://youtu.be/oBt53YbR9Kk',
+      articleUrl: 'https://cp-algorithms.com/dp/',
+      order: 5,
+    },
+    {
+      title: 'Binary Search',
+      description: 'Binary search patterns and applications',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/f6UU7V3szVw',
+      articleUrl: 'https://cp-algorithms.com/num_methods/binary_search.html',
+      order: 6,
+    },
+    {
+      title: 'Stack',
+      description: 'Classic stack problems and applications',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/I5lq6eaBwdI',
+      articleUrl: 'https://www.geeksforgeeks.org/stack-data-structure/',
+      order: 7,
+    },
+    {
+      title: 'Queue',
+      description: 'Queue and sliding window patterns',
+      level: 'easy',
+      youtubeUrl: 'https://youtu.be/p2z7ZxpdXl0',
+      articleUrl: 'https://www.geeksforgeeks.org/queue-data-structure/',
+      order: 8,
+    },
+    {
+      title: 'Graphs',
+      description: 'Traversal, connectivity, and topological ordering',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/0sQUADK06H0',
+      articleUrl: 'https://cp-algorithms.com/graph/',
+      order: 9,
+    },
+    {
+      title: 'Backtracking',
+      description: 'Search with constraints using backtracking',
+      level: 'hard',
+      youtubeUrl: 'https://youtu.be/wGbuCyNpxIg',
+      articleUrl: 'https://www.geeksforgeeks.org/backtracking-algorithms/',
+      order: 10,
+    },
+    {
+      title: 'Greedy',
+      description: 'Greedy choice property and interval problems',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/ARvQcqJ_-NY',
+      articleUrl: 'https://cp-algorithms.com/greedy/',
+      order: 11,
+    },
+    {
+      title: 'Heap / Priority Queue',
+      description: 'Heap-based selection and ordering',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/wptevk0bshY',
+      articleUrl: 'https://cp-algorithms.com/data_structures/heap.html',
+      order: 12,
+    },
+  ]);
+
+  const [arrays, strings, linkedList, trees, dp, binarySearch, stack, queue, graphs, backtracking, greedy, heap] = topics;
+
+  await Problem.insertMany([
+    // Arrays
+    {
+      topic: arrays._id,
+      title: 'Two Sum',
+      level: 'easy',
+      youtubeUrl: 'https://youtu.be/KLlXCFG5TnA',
+      leetCodeUrl: 'https://leetcode.com/problems/two-sum/',
+      articleUrl: 'https://www.geeksforgeeks.org/two-sum-problem/',
+      subIndex: 1,
+    },
+    {
+      topic: arrays._id,
+      title: 'Maximum Subarray',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/5WZl3MMT0Eg',
+      leetCodeUrl: 'https://leetcode.com/problems/maximum-subarray/',
+      articleUrl: 'https://www.geeksforgeeks.org/largest-sum-contiguous-subarray/',
+      subIndex: 2,
+    },
+    {
+      topic: arrays._id,
+      title: 'Merge Intervals',
+      level: 'hard',
+      youtubeUrl: 'https://youtu.be/44H3cEC2fFM',
+      leetCodeUrl: 'https://leetcode.com/problems/merge-intervals/',
+      articleUrl: 'https://www.geeksforgeeks.org/merging-intervals/',
+      subIndex: 3,
+    },
+    // Strings
+    {
+      topic: strings._id,
+      title: 'Valid Anagram',
+      level: 'easy',
+      youtubeUrl: 'https://youtu.be/9UtInBqnCgA',
+      leetCodeUrl: 'https://leetcode.com/problems/valid-anagram/',
+      articleUrl: 'https://www.geeksforgeeks.org/check-whether-two-strings-are-anagram-of-each-other/',
+      subIndex: 1,
+    },
+    {
+      topic: strings._id,
+      title: 'Longest Substring Without Repeating Characters',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/wiGpQwVHdE0',
+      leetCodeUrl: 'https://leetcode.com/problems/longest-substring-without-repeating-characters/',
+      articleUrl: 'https://www.geeksforgeeks.org/length-of-the-longest-substring-without-repeating-characters/',
+      subIndex: 2,
+    },
+    {
+      topic: strings._id,
+      title: 'Longest Palindromic Substring',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/XYQecbcd6_c',
+      leetCodeUrl: 'https://leetcode.com/problems/longest-palindromic-substring/',
+      articleUrl: 'https://www.geeksforgeeks.org/longest-palindrome-substring-set-1/',
+      subIndex: 3,
+    },
+    // Linked List
+    {
+      topic: linkedList._id,
+      title: 'Reverse Linked List',
+      level: 'easy',
+      youtubeUrl: 'https://youtu.be/G0_I-ZF0S38',
+      leetCodeUrl: 'https://leetcode.com/problems/reverse-linked-list/',
+      articleUrl: 'https://www.geeksforgeeks.org/reverse-a-linked-list/',
+      subIndex: 1,
+    },
+    {
+      topic: linkedList._id,
+      title: 'Detect Cycle in Linked List',
+      level: 'easy',
+      youtubeUrl: 'https://youtu.be/gBTe7lFR3vc',
+      leetCodeUrl: 'https://leetcode.com/problems/linked-list-cycle/',
+      articleUrl: 'https://www.geeksforgeeks.org/detect-loop-in-a-linked-list/',
+      subIndex: 2,
+    },
+    {
+      topic: linkedList._id,
+      title: 'Merge Two Sorted Lists',
+      level: 'easy',
+      youtubeUrl: 'https://youtu.be/XIdigk956u0',
+      leetCodeUrl: 'https://leetcode.com/problems/merge-two-sorted-lists/',
+      articleUrl: 'https://www.geeksforgeeks.org/merge-two-sorted-linked-lists/',
+      subIndex: 3,
+    },
+    // Trees
+    {
+      topic: trees._id,
+      title: 'Binary Tree Level Order Traversal',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/6ZnyEApgFYg',
+      leetCodeUrl: 'https://leetcode.com/problems/binary-tree-level-order-traversal/',
+      articleUrl: 'https://www.geeksforgeeks.org/level-order-tree-traversal/',
+      subIndex: 1,
+    },
+    {
+      topic: trees._id,
+      title: 'Validate Binary Search Tree',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/s6ATEkipzow',
+      leetCodeUrl: 'https://leetcode.com/problems/validate-binary-search-tree/',
+      articleUrl: 'https://www.geeksforgeeks.org/a-program-to-check-if-a-binary-tree-is-bst-or-not/',
+      subIndex: 2,
+    },
+    {
+      topic: trees._id,
+      title: 'Lowest Common Ancestor of a BST',
+      level: 'easy',
+      youtubeUrl: 'https://youtu.be/cX_kPV_foZc',
+      leetCodeUrl: 'https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/',
+      articleUrl: 'https://www.geeksforgeeks.org/lowest-common-ancestor-in-a-binary-search-tree/',
+      subIndex: 3,
+    },
+    // Dynamic Programming
+    {
+      topic: dp._id,
+      title: 'Climbing Stairs',
+      level: 'easy',
+      youtubeUrl: 'https://youtu.be/Y0lT9Fck7qI',
+      leetCodeUrl: 'https://leetcode.com/problems/climbing-stairs/',
+      articleUrl: 'https://www.geeksforgeeks.org/count-ways-reach-nth-stair/',
+      subIndex: 1,
+    },
+    {
+      topic: dp._id,
+      title: 'Coin Change',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/H9bfqozjoqs',
+      leetCodeUrl: 'https://leetcode.com/problems/coin-change/',
+      articleUrl: 'https://www.geeksforgeeks.org/coin-change-dp-7/',
+      subIndex: 2,
+    },
+    {
+      topic: dp._id,
+      title: 'Longest Increasing Subsequence',
+      level: 'hard',
+      youtubeUrl: 'https://youtu.be/cjWnW0hdF1Y',
+      leetCodeUrl: 'https://leetcode.com/problems/longest-increasing-subsequence/',
+      articleUrl: 'https://www.geeksforgeeks.org/longest-increasing-subsequence-dp-3/',
+      subIndex: 3,
+    },
+    // Binary Search
+    {
+      topic: binarySearch._id,
+      title: 'Binary Search',
+      level: 'easy',
+      youtubeUrl: 'https://youtu.be/f6UU7V3szVw',
+      leetCodeUrl: 'https://leetcode.com/problems/binary-search/',
+      articleUrl: 'https://www.geeksforgeeks.org/binary-search/',
+      subIndex: 1,
+    },
+    {
+      topic: binarySearch._id,
+      title: 'Search Insert Position',
+      level: 'easy',
+      youtubeUrl: 'https://youtu.be/6zhGS79oQ4k',
+      leetCodeUrl: 'https://leetcode.com/problems/search-insert-position/',
+      articleUrl: 'https://www.geeksforgeeks.org/search-insert-position-of-k-in-a-sorted-array/',
+      subIndex: 2,
+    },
+    {
+      topic: binarySearch._id,
+      title: 'Find First and Last Position of Element',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/4sQL7R5ySUU',
+      leetCodeUrl: 'https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/',
+      articleUrl: 'https://www.geeksforgeeks.org/find-first-and-last-positions-of-an-element-in-a-sorted-array/',
+      subIndex: 3,
+    },
+    // Stack
+    {
+      topic: stack._id,
+      title: 'Valid Parentheses',
+      level: 'easy',
+      youtubeUrl: 'https://youtu.be/WTzjTskDFMg',
+      leetCodeUrl: 'https://leetcode.com/problems/valid-parentheses/',
+      articleUrl: 'https://www.geeksforgeeks.org/check-for-balanced-parentheses-in-an-expression/',
+      subIndex: 1,
+    },
+    {
+      topic: stack._id,
+      title: 'Min Stack',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/qkLl7nAwDPo',
+      leetCodeUrl: 'https://leetcode.com/problems/min-stack/',
+      articleUrl: 'https://www.geeksforgeeks.org/design-and-implement-special-stack-data-structure/',
+      subIndex: 2,
+    },
+    {
+      topic: stack._id,
+      title: 'Daily Temperatures',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/cTBiBSnjO3c',
+      leetCodeUrl: 'https://leetcode.com/problems/daily-temperatures/',
+      articleUrl: 'https://www.geeksforgeeks.org/daily-temperatures/',
+      subIndex: 3,
+    },
+    // Queue
+    {
+      topic: queue._id,
+      title: 'Implement Queue using Stacks',
+      level: 'easy',
+      youtubeUrl: 'https://youtu.be/Wg8IiY1LbII',
+      leetCodeUrl: 'https://leetcode.com/problems/implement-queue-using-stacks/',
+      articleUrl: 'https://www.geeksforgeeks.org/queue-using-stacks/',
+      subIndex: 1,
+    },
+    {
+      topic: queue._id,
+      title: 'Number of Recent Calls',
+      level: 'easy',
+      youtubeUrl: 'https://youtu.be/4hQ5x2Z4QfM',
+      leetCodeUrl: 'https://leetcode.com/problems/number-of-recent-calls/',
+      articleUrl: 'https://www.geeksforgeeks.org/design-a-hit-counter/',
+      subIndex: 2,
+    },
+    {
+      topic: queue._id,
+      title: 'Sliding Window Maximum',
+      level: 'hard',
+      youtubeUrl: 'https://youtu.be/DfljaUwZsOk',
+      leetCodeUrl: 'https://leetcode.com/problems/sliding-window-maximum/',
+      articleUrl: 'https://www.geeksforgeeks.org/sliding-window-maximum-maximum-of-all-subarrays-of-size-k/',
+      subIndex: 3,
+    },
+    // Graphs
+    {
+      topic: graphs._id,
+      title: 'Number of Islands',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/pV2kpPD66nE',
+      leetCodeUrl: 'https://leetcode.com/problems/number-of-islands/',
+      articleUrl: 'https://www.geeksforgeeks.org/find-number-of-islands/',
+      subIndex: 1,
+    },
+    {
+      topic: graphs._id,
+      title: 'Clone Graph',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/7C9RgOcvkvo',
+      leetCodeUrl: 'https://leetcode.com/problems/clone-graph/',
+      articleUrl: 'https://www.geeksforgeeks.org/clone-an-undirected-graph/',
+      subIndex: 2,
+    },
+    {
+      topic: graphs._id,
+      title: 'Course Schedule',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/qzYDrzk1xs4',
+      leetCodeUrl: 'https://leetcode.com/problems/course-schedule/',
+      articleUrl: 'https://www.geeksforgeeks.org/course-schedule-problem-topological-sorting/',
+      subIndex: 3,
+    },
+    // Backtracking
+    {
+      topic: backtracking._id,
+      title: 'Subsets',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/REOH22Xwdkk',
+      leetCodeUrl: 'https://leetcode.com/problems/subsets/',
+      articleUrl: 'https://www.geeksforgeeks.org/subsets-power-set/',
+      subIndex: 1,
+    },
+    {
+      topic: backtracking._id,
+      title: 'Permutations',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/f2ic2Rsc9pU',
+      leetCodeUrl: 'https://leetcode.com/problems/permutations/',
+      articleUrl: 'https://www.geeksforgeeks.org/heaps-algorithm-for-generating-permutations/',
+      subIndex: 2,
+    },
+    {
+      topic: backtracking._id,
+      title: 'N-Queens',
+      level: 'hard',
+      youtubeUrl: 'https://youtu.be/i05Ju7AftcM',
+      leetCodeUrl: 'https://leetcode.com/problems/n-queens/',
+      articleUrl: 'https://www.geeksforgeeks.org/n-queen-problem-backtracking-3/',
+      subIndex: 3,
+    },
+    // Greedy
+    {
+      topic: greedy._id,
+      title: 'Assign Cookies',
+      level: 'easy',
+      youtubeUrl: 'https://youtu.be/Ob7rYc3-7RA',
+      leetCodeUrl: 'https://leetcode.com/problems/assign-cookies/',
+      articleUrl: 'https://www.geeksforgeeks.org/assign-cookies-leetcode/',
+      subIndex: 1,
+    },
+    {
+      topic: greedy._id,
+      title: 'Non-overlapping Intervals',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/nONCGxWoUfM',
+      leetCodeUrl: 'https://leetcode.com/problems/non-overlapping-intervals/',
+      articleUrl: 'https://www.geeksforgeeks.org/maximum-number-of-non-overlapping-intervals-that-can-be-chosen/',
+      subIndex: 2,
+    },
+    {
+      topic: greedy._id,
+      title: 'Jump Game',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/Yan0cv2cLy8',
+      leetCodeUrl: 'https://leetcode.com/problems/jump-game/',
+      articleUrl: 'https://www.geeksforgeeks.org/jump-game/',
+      subIndex: 3,
+    },
+    // Heap / Priority Queue
+    {
+      topic: heap._id,
+      title: 'Kth Largest Element in an Array',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/XEmy13g1Qxc',
+      leetCodeUrl: 'https://leetcode.com/problems/kth-largest-element-in-an-array/',
+      articleUrl: 'https://www.geeksforgeeks.org/kth-smallestlargest-element-unsorted-array/',
+      subIndex: 1,
+    },
+    {
+      topic: heap._id,
+      title: 'Top K Frequent Elements',
+      level: 'medium',
+      youtubeUrl: 'https://youtu.be/YPTqKIgVk-k',
+      leetCodeUrl: 'https://leetcode.com/problems/top-k-frequent-elements/',
+      articleUrl: 'https://www.geeksforgeeks.org/find-k-most-frequent-in-an-array/',
+      subIndex: 2,
+    },
+    {
+      topic: heap._id,
+      title: 'Merge k Sorted Lists',
+      level: 'hard',
+      youtubeUrl: 'https://youtu.be/q5a5OiGbT6Q',
+      leetCodeUrl: 'https://leetcode.com/problems/merge-k-sorted-lists/',
+      articleUrl: 'https://www.geeksforgeeks.org/merge-k-sorted-linked-lists/',
+      subIndex: 3,
+    },
+  ]);
+
+  console.log('Seed complete');
+  await mongoose.disconnect();
+}
+
+run().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
