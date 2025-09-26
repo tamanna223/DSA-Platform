@@ -13,8 +13,37 @@ dotenv.config();
 
 const app = express();
 
+// Allowed origins
+const allowedOrigins = [
+  'http://localhost:5173',  // Development
+  // Add production URL when deploying
+  // 'https://your-frontend-domain.com'
+];
+
+// CORS configuration
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps, curl, postman)
+    if (!origin) return callback(null, true);
+    
+    if (process.env.NODE_ENV === 'development' && origin.startsWith('http://localhost')) {
+      return callback(null, true);
+    }
+    
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  exposedHeaders: ['Content-Range', 'X-Content-Range']
+};
+
 // Middleware
-app.use(cors({ origin: process.env.CLIENT_ORIGIN || '*', credentials: true }));
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(morgan('dev'));
 
