@@ -15,7 +15,7 @@ const app = express();
 
 // Allowed origins
 const allowedOrigins = [
-  'http://localhost:5173',  // Development
+  'https://dsa-assignment-gx30.onrender.com',  // Development
   // Add production URL when deploying
   // 'https://your-frontend-domain.com'
 ];
